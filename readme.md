@@ -1,4 +1,4 @@
-### Task Manager API
+### Task Manager API - Django REST Framework
 
 ##  **Project Setup & Installation**
 
@@ -20,19 +20,7 @@ venv\Scripts\activate      # Windows
 pip install -r requirements.txt
 ```
 
-### 4️ **Apply Migrations**
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### 5️ **Create a Superuser (Admin)**
-```bash
-python manage.py createsuperuser
-```
-- Enter username, email, and password as prompted.
-
-### 6 **Run the Development Server**
+### 4 **Run the Development Server**
 ```bash
 python manage.py runserver
 ```
@@ -40,44 +28,46 @@ Server will be running at: `http://127.0.0.1:8000/`
 
 ---
 
-##  **API Endpoints**
+##  **Sample API Requests**
 
 ### 1️ **Create a Task**
 **Endpoint:**
 ```
-POST /api/tasks/
+POST /api/create-tasks/
 ```
 **Request Body:**
 ```json
 {
-    "name": "Fix Bug",
-    "description": "Resolve the production issue",
-    "task_type": "urgent",
+    "name": "Report Creation",
+    "description": "Create Report",
+    "task_type": "normal",
     "status": "pending"
 }
 ```
 **Response:**
 ```json
 {
-    "id": 1,
-    "name": "Fix Bug",
-    "description": "Resolve the production issue",
-    "task_type": "urgent",
-    "status": "pending",
-    "assigned_users": []
+    "id": 5,
+    "assigned_users": [],
+    "name": "Report Creation",
+    "description": "Create Report",
+    "created_at": "2025-03-26T11:32:01.037160Z",
+    "completed_at": null,
+    "task_type": "normal",
+    "status": "pending"
 }
 ```
 
 ### 2️ **Assign Task to Users**
 **Endpoint:**
 ```
-POST /api/tasks/assign/
+POST /api/assign-tasks/
 ```
 **Request Body:**
 ```json
 {
-    "task_id": 1,
-    "user_ids": [1, 2]
+    "task_id": 3,
+    "user_ids": [10]
 }
 ```
 **Response:**
@@ -90,28 +80,34 @@ POST /api/tasks/assign/
 ### 3️ **Get Tasks for a Specific User**
 **Endpoint:**
 ```
-GET /api/users/<user_id>/tasks/
+GET /api/get-tasks-of-user/<int:user_id>
 ```
 **Example:**
 ```
-GET /api/users/1/tasks/
+GET /api/get-tasks-of-user/1
 ```
 **Response:**
 ```json
 [
     {
         "id": 1,
+        "assigned_users": [],
         "name": "Fix Bug",
         "description": "Resolve the production issue",
+        "created_at": "2025-03-25T20:50:43.542583Z",
+        "completed_at": null,
         "task_type": "urgent",
-        "status": "pending",
-        "assigned_users": [
-            {
-                "id": 1,
-                "username": "admin",
-                "email": "admin@example.com"
-            }
-        ]
+        "status": "pending"
+    },
+    {
+        "id": 2,
+        "assigned_users": [],
+        "name": "Documentation",
+        "description": "Create Documentation",
+        "created_at": "2025-03-25T21:22:19.909325Z",
+        "completed_at": null,
+        "task_type": "normal",
+        "status": "pending"
     }
 ]
 ```
@@ -119,33 +115,13 @@ GET /api/users/1/tasks/
 ---
 
 ##  **Test Credentials**
-Use the superuser account created during the setup process to access the admin panel:
-```
-http://127.0.0.1:8000/admin/
-```
-
-Example credentials (if you create them):
+For Admin:
 - **Username:** admin
-- **Password:** admin123
+- **Password:** admin
 
----
-
-##  **Running Tests**
-You can run tests using the following command:
-```bash
-python manage.py test
-```
-
----
-
-## 🛠 **Environment Variables (Optional)**
-If using `.env` file for configurations:
-```
-SECRET_KEY=your_secret_key
-DEBUG=True
-```
-
----
+For other User:
+- **Username:** TestUser1
+- **Password:** Test@123
 
 
 
