@@ -1,4 +1,4 @@
-### Task Manager API - Django REST Framework
+### Task Manager API
 
 ##  **Project Setup & Installation**
 
